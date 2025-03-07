@@ -8,23 +8,23 @@ const generateTokenSetCookies = (userId, role, res) => {
 
   res.cookie("jwt", token, {
     maxAge: 15 * 24 * 60 * 60 * 1000,
-    httpOnly: false,
+    httpOnly: true,
     sameSite: "None",
-    secure: process.env.NODE_ENV !== "development"
+    secure: process.env.NODE_ENV === "PROD"
   })
   
   res.cookie("role", role, {
     maxAge: 15 * 24 * 60 * 60 * 1000,
-    httpOnly: false,
+    httpOnly: true,
     sameSite: "None",
-    secure: process.env.NODE_ENV !== "development"
+    secure: process.env.NODE_ENV == "PROD"
   })
 
   res.cookie("id", userId, {
     maxAge: 15 * 24 * 60 * 60 * 1000,
-    httpOnly: false,
+    httpOnly: true,
     sameSite: "None",
-    secure: process.env.NODE_ENV !== "development"
+    secure: process.env.NODE_ENV === "PROD"
   })
 }
 
