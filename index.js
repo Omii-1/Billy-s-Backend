@@ -14,8 +14,19 @@ configDotenv({
 const app = express()
 const port = process.env.PORT || 3001
 
+const allowedOrigins = [
+  "https://billy-s-frontend.vercel.app",
+  "http://localhost:5173"
+];
+
 app.use(cors({
-  origin: "https://billy-s-frontend.vercel.app",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
